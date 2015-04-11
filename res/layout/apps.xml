@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+    
+    
+     <ImageView  
+        android:id="@+id/apps_image"          
+        android:layout_width="48dip"       
+        android:layout_height="48dip" 
+        android:icon="@drawable/ic_launcher"        
+         />      
+  
+    <TextView          
+        android:id="@+id/apps_textview"       
+        android:layout_width="wrap_content"       
+        android:layout_height="wrap_content"          
+        android:maxLines="1"          
+        android:maxEms="5"        
+        android:text="good" />  
+
+    
+    
+    <RadioGroup 
+          android:layout_width="wrap_content"       
+        android:layout_height="wrap_content"        
+       android:id="@+id/rg"
+       android:orientation="horizontal">
+        
+      <RadioButton 
+      android:layout_width="wrap_content"       
+        android:layout_height="wrap_content"        
+       android:id="@+id/ban"
+       android:text="ban"/>
+      
+       <RadioButton 
+     android:layout_width="wrap_content"       
+        android:layout_height="wrap_content"        
+       android:id="@+id/allow"
+       android:text="allow"/>
+       
+       
+         <RadioButton 
+      android:layout_width="wrap_content"       
+        android:layout_height="wrap_content"        
+       android:id="@+id/running"
+       android:text="running"/>
+       
+
+     </RadioGroup>
+        
+        
+    
+</LinearLayout>

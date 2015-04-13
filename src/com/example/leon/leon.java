@@ -24,7 +24,7 @@ public class leon implements IXposedHookLoadPackage{
 	            
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	                // this will be called before the clock was updated by the original method
-	            	int uid=Binder.getCallingUid();
+	            /*	int uid=Binder.getCallingUid();
 	            	 XposedBridge.log("before"+uid );
 	            	
 	            	  XSharedPreferences pre = new XSharedPreferences("com.example.leon", VALUE );  
@@ -54,12 +54,45 @@ public class leon implements IXposedHookLoadPackage{
 		      	   XposedBridge.log("resultback"+String.valueOf(resultBack));
 	            	 
 	            	 
-	            	 
+	            	 */
 	            	 
 	            }
 	            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
 	            	int uid=Binder.getCallingUid();
 	            	 XposedBridge.log("after"+uid );
+	            	
+	            	  XSharedPreferences pre = new XSharedPreferences("com.example.leon", VALUE );  
+		      	        String def="";
+		      	        String uuid=String.valueOf(uid);
+		      	         String pname=pre.getString(uuid, def);
+		      	         
+		      	    XSharedPreferences xvalue = new XSharedPreferences("com.example.leon", SHOWBUTTON );  
+		      	         int result=xvalue.getInt(pname, 0);
+		      	         
+		      	         
+		      	       if(result==R.id.ban)
+		   			{
+		      	    	   
+		      	    	 resultBack=2;
+		      	    	 param.setResult(String.valueOf(resultBack));
+		   			 	
+		   			}else if(result==R.id.allow)
+		   			{
+		   			 resultBack=3;
+		   			 param.setResult(String.valueOf(resultBack));
+		   			}else if(result==R.id.running)
+		   			{
+		   				
+		   			 resultBack=4;
+		   			 param.setResult(String.valueOf(resultBack));
+		   			}
+		      	         
+		      	         
+		      	   XposedBridge.log("resultback"+String.valueOf(resultBack));
+		      	   
+		      	   
+		      	   
+		      	   
 	            }
 	        });
 	    }

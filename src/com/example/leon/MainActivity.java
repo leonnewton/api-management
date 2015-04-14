@@ -44,6 +44,8 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 	    
+		
+		
 		//showbutton存储每个应用对应用户的选项
 		preferences1=getSharedPreferences("showbutton",MODE_WORLD_READABLE);
 		//value表示uid对应的包名
@@ -94,6 +96,25 @@ public class MainActivity extends ActionBarActivity {
 		
 	}
 
+	
+	public void getDeviceID()
+	{
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	//获取所有安装的应用
 	 public  List<PackageInfo> getAllApps(Context context) {

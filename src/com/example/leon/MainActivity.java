@@ -97,25 +97,6 @@ public class MainActivity extends ActionBarActivity {
 	}
 
 	
-	public void getDeviceID()
-	{
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	//获取所有安装的应用
 	 public  List<PackageInfo> getAllApps(Context context) {
 		 

@@ -125,15 +125,6 @@ public class leon implements IXposedHookLoadPackage{
 	            }
 	        });
 	    }
-	 
-
-	 public int  result()
-	 {
-		
-		 return 1;
-	 }
-	 
-	
-	 
+	  
 	
 }

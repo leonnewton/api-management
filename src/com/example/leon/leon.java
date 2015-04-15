@@ -1,5 +1,7 @@
 package com.example.leon;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.ActivityManager;
@@ -50,11 +52,13 @@ public class leon implements IXposedHookLoadPackage{
 	            	    for (RunningAppProcessInfo appProcess : appProcesses) {
 	            	         if (appProcess.processName.equals(context.getPackageName())) {
 	            	                if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_BACKGROUND) {
-	            	                 XposedBridge.log("back");
+	            	                // XposedBridge.log("back");
+	            	                	System.out.println("back");
 	            	                 isrunning=false;
 	            	                         
 	            	                }else{
-	            	               	 XposedBridge.log("front");
+	            	              // 	 XposedBridge.log("front");
+	            	                	System.out.println("front");
 	            	               	isrunning=true;        
 	            	                }
 	            	           }
@@ -62,7 +66,8 @@ public class leon implements IXposedHookLoadPackage{
 	            	
 	           /*获得uid*/
 	            	int uid=Binder.getCallingUid();
-	            	 XposedBridge.log("after"+uid );
+	            //	 XposedBridge.log("after"+uid );
+	            	System.out.println("after"+uid );
 	            	
 	            	 
 	            /*读取应用的uid*/
@@ -80,32 +85,42 @@ public class leon implements IXposedHookLoadPackage{
 		      	         int result=xvalue.getInt(pname, 0);
 		      	         
 		      	         
+		      	         
+		      	SimpleDateFormat mdf=new  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");       
 		      	       if(result==R.id.ban)
 		   			{
-		      	    	   
+		     XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/ban so ban");	
+		 	System.out.println("banned");
 		      	    	 resultBack=2;
 		      	    	 param.setResult(String.valueOf(resultBack));
 		   			 	
 		   			}else if(result==R.id.allow)
 		   			{
+	         XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/allow so allow");	
+	     	  System.out.println("allow");
 		   			 resultBack=3;
 		   			 param.setResult(String.valueOf(resultBack));
 		   			}else if(result==R.id.running)
 		   			{
 		   				if(isrunning==false)
 		   				{      resultBack=4;
+		   	XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/running-back so ban");	 
+		      	System.out.println("real back");
 		   			   param.setResult(String.valueOf(resultBack));
 		   				}else{
 		   				 resultBack=3;
+		XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/running-front so allow");	 
+				      	  System.out.println("real front");
 			   			 param.setResult(String.valueOf(resultBack));	
 		   				}
 		   			 
 		   			 
 		   			}
 		      	         
-		      	         
-		      	   XposedBridge.log("resultback"+String.valueOf(resultBack));
-   	   
+		      	 
+		      	   
+		      
+		      	  System.out.println("resultback"+String.valueOf(resultBack));
 		      	   
 	            }
 	        });

@@ -110,6 +110,7 @@ public class MainActivity extends ActionBarActivity {
 	            // 判断是否为非系统预装的应用程序
 	            // 这里还可以添加系统自带的，这里就先不添加了，如果有需要可以自己添加
 	            // if()里的值如果<=0则为自己装的程序，否则为系统工程自带
+	          //  System.out.println("xh:"+i+pak.applicationInfo.processName+" flags:"+Integer.toBinaryString(pak.applicationInfo.flags)+" sys:"+pak.applicationInfo.FLAG_SYSTEM+" "+(pak.applicationInfo.flags&pak.applicationInfo.FLAG_SYSTEM));
 	            if ((pak.applicationInfo.flags & pak.applicationInfo.FLAG_SYSTEM) <= 0) {
 	                // 添加自己已经安装的应用程序
 	                apps.add(pak);

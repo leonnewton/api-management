@@ -28,13 +28,13 @@ public class leon implements IXposedHookLoadPackage{
 	            return;*/
 		  
 		
-		 XposedHelpers.findAndHookMethod("android.telephony.TelephonyManager", lpparam.classLoader, "getDeviceId", new XC_MethodHook() {
+		 XposedHelpers.findAndHookMethod("android.location.Location", lpparam.classLoader, "getLongitude", new XC_MethodHook() {
 	            @Override
 	            
 	            protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
 	                // this will be called before the clock was updated by the original method
 	            
-	            	
+	            	System.out.println("called");
 	            }
 	            
 	            
@@ -45,6 +45,7 @@ public class leon implements IXposedHookLoadPackage{
 	            	Context context = (Context) AndroidAppHelper.currentApplication();
 	            	
 	            	boolean isrunning=false;
+	            	String borf="";
 	            	
 	            	/*判断程序在前台还是后台*/
 	            	 ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -54,11 +55,13 @@ public class leon implements IXposedHookLoadPackage{
 	            	                if (appProcess.importance == RunningAppProcessInfo.IMPORTANCE_BACKGROUND) {
 	            	                // XposedBridge.log("back");
 	            	                	System.out.println("back");
+	            	                	borf="back";
 	            	                 isrunning=false;
 	            	                         
 	            	                }else{
 	            	              // 	 XposedBridge.log("front");
 	            	                	System.out.println("front");
+	            	                	borf="front";
 	            	               	isrunning=true;        
 	            	                }
 	            	           }
@@ -67,7 +70,7 @@ public class leon implements IXposedHookLoadPackage{
 	           /*获得uid*/
 	            	int uid=Binder.getCallingUid();
 	            //	 XposedBridge.log("after"+uid );
-	            	System.out.println("after"+uid );
+	            	//System.out.println("after"+uid );
 	            	
 	            	 
 	            /*读取应用的uid*/
@@ -84,43 +87,47 @@ public class leon implements IXposedHookLoadPackage{
 		      	    XSharedPreferences xvalue = new XSharedPreferences("com.example.leon", SHOWBUTTON );  
 		      	         int result=xvalue.getInt(pname, 0);
 		      	         
-		      	         
+		      	   	System.out.println("ready "+result);      
 		      	         
 		      	SimpleDateFormat mdf=new  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");       
 		      	       if(result==R.id.ban)
 		   			{
-		     XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/ban so ban");	
+		     XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/ban so ban "+borf);	
 		 	System.out.println("banned");
 		      	    	 resultBack=2;
-		      	    	 param.setResult(String.valueOf(resultBack));
+		      	    	double rback=1.00;
+		      	    	 param.setResult(rback);
 		   			 	
 		   			}else if(result==R.id.allow)
 		   			{
-	         XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/allow so allow");	
+	         XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/allow so allow "+borf);	
 	     	  System.out.println("allow");
 		   			 resultBack=3;
-		   			 param.setResult(String.valueOf(resultBack));
+		   			double rback=2.00;
+		   			// param.setResult(rback);
 		   			}else if(result==R.id.running)
 		   			{
 		   				if(isrunning==false)
 		   				{      resultBack=4;
-		   	XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/running-back so ban");	 
+		   	XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/running-back so ban "+borf);	 
 		      	System.out.println("real back");
-		   			   param.setResult(String.valueOf(resultBack));
+		      	       double rback=3.00;
+		   			   param.setResult(rback);
 		   				}else{
 		   				 resultBack=3;
-		XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/running-front so allow");	 
+		XposedBridge.log(mdf.format(new Date())+" "+pname+" called api/running-front so allow "+borf);	 
 				      	  System.out.println("real front");
-			   			 param.setResult(String.valueOf(resultBack));	
+				      	 double rback=4.00;
+			   			// param.setResult(rback);	
 		   				}
 		   			 
 		   			 
 		   			}
 		      	         
 		      	 
-		      	   
+		      	 	System.out.println("over");     	   
 		      
-		      	  System.out.println("resultback"+String.valueOf(resultBack));
+		      	
 		      	   
 	            }
 	        });
